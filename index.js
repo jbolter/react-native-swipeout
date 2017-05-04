@@ -106,6 +106,7 @@ const Swipeout = React.createClass({
     scroll: PropTypes.func,
     style: View.propTypes.style,
     sensitivity: PropTypes.number,
+    buttonWidth: PropTypes.number,
   },
 
   getDefaultProps: function() {
@@ -157,10 +158,11 @@ const Swipeout = React.createClass({
       if (this.props.onClose) this.props.onClose(this.props.sectionID, this.props.rowID);
     }
     this.refs.swipeoutContent.measure((ox, oy, width, height) => {
+      const buttonWidth = this.props.buttonWidth ? this.props.buttonWidth : (width/3);
       this.setState({
-        btnWidth: (width/5),
-        btnsLeftWidth: this.props.left ? (width/5)*this.props.left.length : 0,
-        btnsRightWidth: this.props.right ? (width/5)*this.props.right.length : 0,
+        btnWidth: buttonWidth,
+        btnsLeftWidth: this.props.left ? buttonWidth*this.props.left.length : 0,
+        btnsRightWidth: this.props.right ? buttonWidth*this.props.right.length : 0,
         swiping: true,
         timeStart: (new Date()).getTime(),
       });
